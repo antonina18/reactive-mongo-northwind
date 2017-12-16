@@ -1,12 +1,15 @@
 package sowa.domain.people.employees;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
 
 import java.time.LocalDateTime;
 
-@Document
-public class Employee extends Versioned {
+@Document(collection = "employees")
+public class Employee {
+
+    @Id
+    public Integer employeeID;
 
     public String lastName;
     public String firstName;

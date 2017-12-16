@@ -1,10 +1,11 @@
 package sowa.domain.suppliers;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
 
-@Document
-public class Supplier extends Versioned {
+@Document(collection = "suppliers")
+public class Supplier {
+
+    public Integer supplierID;
 
     public String companyName;
     public String contactName;

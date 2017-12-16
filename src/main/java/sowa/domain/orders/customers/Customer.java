@@ -1,10 +1,13 @@
 package sowa.domain.people.customers;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
 
-@Document
-public class Customer extends Versioned {
+@Document(collection = "customers")
+public class Customer {
+
+    @Id
+    public Integer customerID;
 
     public String companyName;
     public String contactName;

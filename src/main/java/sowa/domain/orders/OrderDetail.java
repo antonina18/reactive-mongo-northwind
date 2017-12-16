@@ -1,10 +1,9 @@
 package sowa.domain.orders;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
 
-@Document
-public class OrderDetails extends Versioned {
+@Document(collection = "orderDetails")
+public class OrderDetail {
 
     public Integer productId;
     public Double unitPrice;
