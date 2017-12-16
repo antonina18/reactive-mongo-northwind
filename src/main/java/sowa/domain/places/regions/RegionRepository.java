@@ -1,4 +1,4 @@
-package sowa.domain.people.regions;
+package sowa.domain.places.regions;
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;

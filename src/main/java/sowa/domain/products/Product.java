@@ -1,10 +1,11 @@
 package sowa.domain.products;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
+import sowa.common.DomainModel;
 
-@Document
-public class Product extends Versioned {
+@Document(collection = "products")
+public class Product extends DomainModel {
 
     public String productName;
     public String quantityPerUnit;
@@ -15,9 +16,8 @@ public class Product extends Versioned {
     public Boolean discontinued;
 
     // ID of corresponding Supplier Object
-    public Integer supplierId;
+    public String supplierId;
     // Embedded Category Object (One-to-One relation)
+    @DBRef
     public Category category;
-
-    //    public Integer categoryId;
 }

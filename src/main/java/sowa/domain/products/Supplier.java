@@ -1,11 +1,10 @@
-package sowa.domain.suppliers;
+package sowa.domain.products;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import sowa.common.DomainModel;
 
 @Document(collection = "suppliers")
-public class Supplier {
-
-    public Integer supplierID;
+public class Supplier extends DomainModel {
 
     public String companyName;
     public String contactName;

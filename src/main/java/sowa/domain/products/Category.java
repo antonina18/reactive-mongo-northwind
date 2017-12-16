@@ -1,13 +1,17 @@
 package sowa.domain.products;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
+        import org.bson.types.ObjectId;
+        import org.springframework.data.mongodb.core.mapping.Document;
+        import sowa.common.DomainModel;
 
-@Document
-public class Category {
+@Document(collection = "categories")
+public class Category extends DomainModel {
 
-    public String categoryName;
-    public String Description;
+    public String name;
+    public String description;
     public byte[] picture;
 
+    public Category() {
+        this._id = ObjectId.get();
+    }
 }

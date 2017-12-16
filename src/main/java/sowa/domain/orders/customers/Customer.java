@@ -1,4 +1,4 @@
-package sowa.domain.people.customers;
+package sowa.domain.orders.customers;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

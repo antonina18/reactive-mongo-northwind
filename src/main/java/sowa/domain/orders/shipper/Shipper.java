@@ -1,4 +1,4 @@
-package sowa.domain.people.person;
+package sowa.domain.orders.shipper;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import sowa.common.DomainModel;

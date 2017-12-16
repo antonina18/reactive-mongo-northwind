@@ -1,17 +1,44 @@
-package sowa.domain.people.regions;
+package sowa.domain.places.territories;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "territories")
 public class Territory {
 
-    private Integer territoryID;
+    @Id
+    private String territoryID;
+
     private String territoryDescription;
     private Integer regionID;
 
-    public Territory(Integer territoryID, String territoryDescription, Integer regionID) {
+    public Territory(String territoryID, String territoryDescription, Integer regionID) {
         this.territoryID = territoryID;
         this.territoryDescription = territoryDescription;
+        this.regionID = regionID;
+    }
+
+    public String getTerritoryID() {
+        return territoryID;
+    }
+
+    public void setTerritoryID(String territoryID) {
+        this.territoryID = territoryID;
+    }
+
+    public String getTerritoryDescription() {
+        return territoryDescription;
+    }
+
+    public void setTerritoryDescription(String territoryDescription) {
+        this.territoryDescription = territoryDescription;
+    }
+
+    public Integer getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Integer regionID) {
         this.regionID = regionID;
     }
 

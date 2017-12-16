@@ -1,15 +1,17 @@
 package sowa.domain.orders;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Document
-public class Order extends Versioned {
+@Document(collection = "orders")
+public class Order {
 
-    public String customerId;
-    public Integer employeeId;
+    @Id
+    public Integer orderID;
+
     public LocalDateTime orderDate;
     public LocalDateTime requiredDate;
     public LocalDateTime shippedDate;
@@ -21,5 +23,10 @@ public class Order extends Versioned {
     public String shipRegion;
     public String shipPostalCode;
     public String shipCountry;
+
+    public String customerID;
+    public String employeeID;
+    public String shipperID;
+    public List<OrderDetail> orderDetails;
     
 }

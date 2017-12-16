@@ -1,20 +1,17 @@
+package sowa;
+
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "sowa")
 public class ApplicationStarter implements CommandLineRunner {
 
-//    @Autowired
-//    private TerritoryRepository territoryRepository;
-//
-//    @Autowired
-//    private RegionRepository regionRepository;
-
     public static void main(String[] args) {
-        SpringApplication.run(ApplicationStarter.class, args);
+        new SpringApplicationBuilder(ApplicationStarter.class)
+                .web(WebApplicationType.REACTIVE)
+                .run(args);
     }
 
     @Override

@@ -1,10 +1,13 @@
-package sowa.domain.people.regions;
+package sowa.domain.places.regions;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.domain.Versioned;
 
 @Document(collection = "regions")
-public class Region extends Versioned{
+public class Region {
+
+    @Id
+    private Integer regionID;
 
     private String regionDescription;
 
@@ -12,10 +15,27 @@ public class Region extends Versioned{
         this.regionDescription = regionDescription;
     }
 
+    public Integer getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Integer regionID) {
+        this.regionID = regionID;
+    }
+
+    public String getRegionDescription() {
+        return regionDescription;
+    }
+
+    public void setRegionDescription(String regionDescription) {
+        this.regionDescription = regionDescription;
+    }
+
     @Override
     public String toString() {
         return "Region{" +
-                "regionDescription='" + regionDescription + '\'' +
-                "} " + super.toString();
+                "regionID=" + regionID +
+                ", regionDescription='" + regionDescription + '\'' +
+                '}';
     }
 }
