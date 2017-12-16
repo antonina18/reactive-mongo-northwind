@@ -1,16 +1,14 @@
 package sowa.domain.orders;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import sowa.common.DomainModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(collection = "orders")
-public class Order {
-
-    @Id
-    public Integer orderID;
+public class Order extends DomainModel{
 
     public LocalDateTime orderDate;
     public LocalDateTime requiredDate;
@@ -27,6 +25,8 @@ public class Order {
     public String customerID;
     public String employeeID;
     public String shipperID;
+
+    @DBRef
     public List<OrderDetail> orderDetails;
     
 }
