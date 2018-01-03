@@ -1,0 +1,1 @@
+docker build -t sovas/reactive-mongo-northwind:latest .
