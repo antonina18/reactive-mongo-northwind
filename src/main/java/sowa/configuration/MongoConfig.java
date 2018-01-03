@@ -2,6 +2,7 @@ package sowa.configuration;
 
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
@@ -12,9 +13,15 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @EnableReactiveMongoRepositories(basePackages = "sowa.domain")
 public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
+    @Value("${spring.data.mongodb.host}")
+    private String mongoHost;
+
+    @Value("${spring.data.mongodb.port}")
+    private String mongoPort;
+
     @Bean
     public MongoClient mongoClient() {
-        return MongoClients.create();
+        return MongoClients.create("mongodb://" + mongoHost + ":" + mongoPort);
     }
 
     @Override
@@ -24,7 +31,7 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
     @Override
     public MongoClient reactiveMongoClient() {
-        return MongoClients.create();
+        return MongoClients.create("mongodb://" + mongoHost + ":" + mongoPort);
     }
 
     @Bean
