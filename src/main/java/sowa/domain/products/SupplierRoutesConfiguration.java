@@ -13,11 +13,11 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 @EnableWebFlux
-class ProductRoutesConfiguration {
+class SupplierRoutesConfiguration {
 
     @Bean
-    public RouterFunction<ServerResponse> productRouterFunction(ProductHandler handler) {
-        return nest(path("/products"),
+    public RouterFunction<ServerResponse> supllierRouterFunction(SupplierHandler handler) {
+        return nest(path("/suppliers"),
                 route(
                         GET("/{id}")
                                 .and(accept(APPLICATION_JSON)),
@@ -25,16 +25,7 @@ class ProductRoutesConfiguration {
                 .andRoute(
                         GET("")
                                 .and(accept(APPLICATION_JSON)),
-                        handler::handleGetAll)
-                .andRoute(
-                        POST("")
-                                .and(contentType(APPLICATION_JSON)),
-                        handler::handlePostAll)
-                .andRoute(
-                        GET("/by-supplier-country")
-                                .and(accept(APPLICATION_JSON))
-                                .and(queryParam("search", e -> !e.isEmpty())),
-                        handler::findGetAllBySupplierCountry));
+                        handler::handleGetAll));
     }
 
 }

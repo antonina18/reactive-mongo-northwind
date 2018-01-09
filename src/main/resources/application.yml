@@ -2,6 +2,12 @@ logging:
   level:
     root: info
 
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+
 ---
 
 spring:

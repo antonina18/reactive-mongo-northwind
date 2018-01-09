@@ -12,4 +12,3 @@ mongoimport -d test -c "employee-territories" --type csv --file "employee-territ
 mongoimport -d test -c "employee-territories" --type csv --file "employee-territories.csv" --headerline
 mongoimport -d test -c "employee-territories" --type csv --file "employee-territories.csv" --headerline
 mongoimport -d test -c "employee-territories" --type csv --file "employee-territories.csv" --headerline
-
