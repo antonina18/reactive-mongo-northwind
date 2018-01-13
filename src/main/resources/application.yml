@@ -1,6 +1,11 @@
 logging:
   level:
-    root: info
+    root: trace
+
+management:
+  endpoints:
+    web:
+      expose: "*"
 
 spring:
   data:

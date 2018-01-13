@@ -19,13 +19,19 @@ class SupplierRoutesConfiguration {
     public RouterFunction<ServerResponse> supllierRouterFunction(SupplierHandler handler) {
         return nest(path("/suppliers"),
                 route(
+                        GET("")
+                                .and(accept(APPLICATION_JSON)),
+                        handler::handleGetAll)
+                .andRoute(
+                        GET("/search")
+                                .and(accept(APPLICATION_JSON))
+                                .and(queryParam("city", e -> !e.isEmpty())),
+                        handler::findAllByCity)
+                .andRoute(
                         GET("/{id}")
                                 .and(accept(APPLICATION_JSON)),
                         handler::handleGet)
-                .andRoute(
-                        GET("")
-                                .and(accept(APPLICATION_JSON)),
-                        handler::handleGetAll));
+               );
     }
 
 }

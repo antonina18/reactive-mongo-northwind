@@ -35,4 +35,11 @@ public class SupplierHandler {
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Supplier.class);
     }
 
+    public Mono<ServerResponse> findAllByCity(ServerRequest request) {
+        Flux<Supplier> data = queryService
+                .findAllByCity(request
+                        .queryParam("city")
+                        .orElseThrow(IllegalArgumentException::new));
+        return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Supplier.class);
+    }
 }

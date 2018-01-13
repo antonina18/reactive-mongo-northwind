@@ -21,4 +21,8 @@ public final class SupplierQueryService {
         return repository.findAll();
     }
 
+    protected Flux<Supplier> findAllByCity(String search) {
+        return repository.findAllByCity(search);
+    }
+
 }

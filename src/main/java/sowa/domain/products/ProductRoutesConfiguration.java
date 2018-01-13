@@ -19,10 +19,6 @@ class ProductRoutesConfiguration {
     public RouterFunction<ServerResponse> productRouterFunction(ProductHandler handler) {
         return nest(path("/products"),
                 route(
-                        GET("/{id}")
-                                .and(accept(APPLICATION_JSON)),
-                        handler::handleGet)
-                .andRoute(
                         GET("")
                                 .and(accept(APPLICATION_JSON)),
                         handler::handleGetAll)
@@ -31,10 +27,15 @@ class ProductRoutesConfiguration {
                                 .and(contentType(APPLICATION_JSON)),
                         handler::handlePostAll)
                 .andRoute(
-                        GET("/by-supplier-country")
+                        GET("/search")
                                 .and(accept(APPLICATION_JSON))
-                                .and(queryParam("search", e -> !e.isEmpty())),
-                        handler::findGetAllBySupplierCountry));
+                                .and(queryParam("supplier.country", e -> !e.isEmpty())),
+                        handler::findGetAllBySupplierCountry)
+                .andRoute(
+                        GET("/{id}")
+                                .and(accept(APPLICATION_JSON)),
+                        handler::handleGet)
+               );
     }
 
 }
