@@ -51,6 +51,8 @@ public final class ReportQueryService {
         return Mono.just(reportVM);
     }
 
+    // TODO: 19.01.2018 extract above methods private
+
     private OrderVM mapToOrderVM(Order order) {
         OrderVM orderVM = new OrderVM();
         orderVM.id = order._id.toString();

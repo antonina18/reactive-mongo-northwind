@@ -18,8 +18,6 @@ public class Product extends DomainModel {
     public Short reorderLevel;
     public Boolean discontinued;
 
-    // ID of corresponding Supplier Object
     public ObjectId supplierId;
-    // Embedded Category Object (One-to-One relation)
     public Category category;
 }
