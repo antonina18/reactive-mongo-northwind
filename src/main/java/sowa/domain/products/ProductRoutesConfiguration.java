@@ -12,7 +12,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.n
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-@EnableWebFlux
 class ProductRoutesConfiguration {
 
     @Bean
@@ -29,7 +28,7 @@ class ProductRoutesConfiguration {
                 .andRoute(
                         GET("/search")
                                 .and(accept(APPLICATION_JSON))
-                                .and(queryParam("supplier.country", e -> !e.isEmpty())),
+                                .and(queryParam("supplierCountry", e -> !e.isEmpty())),
                         handler::findGetAllBySupplierCountry)
                 .andRoute(
                         GET("/{id}")

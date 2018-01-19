@@ -12,11 +12,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
 @Configuration
-@EnableWebFlux
 class TerritoryRoutesConfiguration {
 
     @Bean
-    public RouterFunction<ServerResponse> routerFunction(TerritoryHandler handler) {
+    public RouterFunction<ServerResponse> territoryRouterFunction(TerritoryHandler handler) {
         return nest(path("/territories"),
                 route(
                         GET("/{id}")

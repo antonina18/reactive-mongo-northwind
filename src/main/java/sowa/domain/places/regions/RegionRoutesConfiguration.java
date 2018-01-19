@@ -11,11 +11,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.n
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-@EnableWebFlux
 class RegionRoutesConfiguration {
 
     @Bean
-    public RouterFunction<?> routerFunction(RegionHandler handler) {
+    public RouterFunction<?> regionRouterFunction(RegionHandler handler) {
         return nest(path("/regions"),
                 route(
                         GET("")

@@ -45,7 +45,7 @@ public class ProductHandler {
     public Mono<ServerResponse> findGetAllBySupplierCountry(ServerRequest request) {
         Flux<Product> products = queryService
                 .findAllBySupplierCountry(request
-                        .queryParam("supplier.country")
+                        .queryParam("supplierCountry")
                         .orElseThrow(IllegalArgumentException::new));
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(products, Product.class);
     }

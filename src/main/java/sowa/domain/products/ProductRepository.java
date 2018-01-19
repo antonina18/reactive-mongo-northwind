@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 
 interface ProductRepository extends ReactiveMongoRepository<Product, String> {
-    @Query("{'supplier.country': ?0}")
-    Flux<Product> findAllBySupplierCountry(String search);
+    @Query("{'supplierId': ?0}")
+    Flux<Product> findAllBySupplierCountry(String supplierCountry);
 }

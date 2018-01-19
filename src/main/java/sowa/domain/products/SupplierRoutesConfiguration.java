@@ -12,7 +12,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.n
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-@EnableWebFlux
 class SupplierRoutesConfiguration {
 
     @Bean

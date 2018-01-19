@@ -21,7 +21,7 @@ public final class ProductQueryService {
         return repository.findAll();
     }
 
-    protected Flux<Product> findAllBySupplierCountry(String search) {
-        return repository.findAllBySupplierCountry(search);
+    protected Flux<Product> findAllBySupplierCountry(String supplierCountry) {
+        return repository.findAllBySupplierCountry(supplierCountry);
     }
 }
