@@ -1,9 +1,0 @@
-package sowa.domain.places.territories;
-
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-import reactor.core.publisher.Mono;
-
-public interface TerritoryRepository extends ReactiveMongoRepository<Territory, Integer> {
-
-    Mono<Territory> findByTerritoryID(Integer id);
-}

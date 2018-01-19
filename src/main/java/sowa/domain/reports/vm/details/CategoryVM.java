@@ -1,6 +1,6 @@
-package sowa.domain.products;
+package sowa.domain.reports.vm.details;
 
-public class Category {
+public class CategoryVM {
 
     public String name;
     public String description;
