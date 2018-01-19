@@ -1,22 +1,21 @@
 package sowa.domain.orders.employees;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
+import sowa.common.DomainModel;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Document(collection = "employees")
-public class Employee {
-
-    @Id
-    public Integer employeeID;
+@TypeAlias("employee")
+public class Employee extends DomainModel {
 
     public String lastName;
     public String firstName;
     public String title;
     public String titleOfCourtesy;
-    public LocalDateTime birthDate;
-    public LocalDateTime hireDate;
+    public LocalDate birthDate;
+    public LocalDate hireDate;
     public String address;
     public String city;
     public String region;

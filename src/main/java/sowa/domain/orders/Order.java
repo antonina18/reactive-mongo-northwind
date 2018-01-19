@@ -1,19 +1,26 @@
 package sowa.domain.orders;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import sowa.common.DomainModel;
+import sowa.domain.orders.customers.Customer;
+import sowa.domain.orders.employees.Employee;
+import sowa.domain.orders.shipper.Shipper;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Document(collection = "orders")
-public class Order extends DomainModel{
+@TypeAlias("order")
+public class Order extends DomainModel {
 
-    public LocalDateTime orderDate;
-    public LocalDateTime requiredDate;
-    public LocalDateTime shippedDate;
-    public Integer shipVia;
+    public LocalDate orderDate;
+    public LocalDate requiredDate;
+    public LocalDate shippedDate;
     public Double freight;
     public String shipName;
     public String shipAddress;
@@ -22,11 +29,13 @@ public class Order extends DomainModel{
     public String shipPostalCode;
     public String shipCountry;
 
-    public String customerID;
-    public String employeeID;
-    public String shipperID;
+    @JsonSerialize(using = ToStringSerializer.class)
+    public ObjectId customerId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    public ObjectId employeeId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    public ObjectId shipperId;
 
-    @DBRef
     public List<OrderDetail> orderDetails;
-    
+
 }

@@ -1,13 +1,13 @@
 package sowa.domain.orders;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import sowa.common.DomainModel;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.bson.types.ObjectId;
 
-@Document(collection = "orderDetails")
-public class OrderDetail extends DomainModel {
+public class OrderDetail {
 
-    public Integer orderDetailID;
-    public Integer productId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    public ObjectId productId;
     public Double unitPrice;
     public Short quantity;
     public Double discount;

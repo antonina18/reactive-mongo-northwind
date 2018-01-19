@@ -1,13 +1,12 @@
 package sowa.domain.orders.customers;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
+import sowa.common.DomainModel;
 
 @Document(collection = "customers")
-public class Customer {
-
-    @Id
-    public Integer customerID;
+@TypeAlias("customer")
+public class Customer extends DomainModel {
 
     public String companyName;
     public String contactName;
@@ -20,4 +19,19 @@ public class Customer {
     public String phone;
     public String fax;
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "companyName='" + companyName + '\'' +
+                ", contactName='" + contactName + '\'' +
+                ", contactTitle='" + contactTitle + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fax='" + fax + '\'' +
+                "} " + super.toString();
+    }
 }
