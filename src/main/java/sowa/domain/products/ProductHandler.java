@@ -9,6 +9,8 @@ import reactor.core.publisher.Mono;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 @Component
 public class ProductHandler {
@@ -37,6 +39,12 @@ public class ProductHandler {
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(products, Product.class);
     }
 
+    public Mono<ServerResponse> handlePost(ServerRequest request) {
+        Mono<Product> product = request.bodyToMono(Product.class);
+//        order.subscribe(o -> System.out.println(o.toString()));
+        return ServerResponse.ok().body(commandService.insert(product), Product.class);
+    }
+
     public Mono<ServerResponse> handlePostAll(ServerRequest request) {
         Flux<Product> products = request.bodyToFlux(Product.class);
         return ServerResponse.ok().body(commandService.insertAll(products), Product.class);
@@ -50,5 +58,17 @@ public class ProductHandler {
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(products, Product.class);
     }
 
+    public Mono<ServerResponse> handleDelete(ServerRequest request) {
+        commandService.delete(request.pathVariable("id"));
+        return ServerResponse.ok().build();
 
+    }
+
+    public Mono<ServerResponse> handlePut(ServerRequest request) {
+        final Mono<Product> product = queryService.findByID(request.pathVariable("id"));
+
+        return product
+                .flatMap(c -> ok().body(commandService.save(product), Product.class))
+                .switchIfEmpty(notFound().build());
+    }
 }

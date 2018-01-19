@@ -9,14 +9,18 @@ import reactor.core.publisher.Mono;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 @Component
 public class SupplierHandler {
 
     private final SupplierQueryService queryService;
+    private final SupplierCommandService commandService;
 
-    public SupplierHandler(SupplierQueryService queryService) {
+    public SupplierHandler(SupplierQueryService queryService, SupplierCommandService commandService) {
         this.queryService = queryService;
+        this.commandService = commandService;
     }
 
     public Mono<ServerResponse> handleGet(ServerRequest request) {
@@ -30,6 +34,12 @@ public class SupplierHandler {
 
     }
 
+    public Mono<ServerResponse> handlePost(ServerRequest request) {
+        Mono<Supplier> supplier = request.bodyToMono(Supplier.class);
+//        order.subscribe(o -> System.out.println(o.toString()));
+        return ServerResponse.ok().body(commandService.insert(supplier), Supplier.class);
+    }
+
     public Mono<ServerResponse> handleGetAll(ServerRequest request) {
         Flux<Supplier> data = queryService.findAll();
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Supplier.class);
@@ -41,5 +51,19 @@ public class SupplierHandler {
                         .queryParam("city")
                         .orElseThrow(IllegalArgumentException::new));
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Supplier.class);
+    }
+
+    public Mono<ServerResponse> handleDelete(ServerRequest request) {
+        commandService.delete(request.pathVariable("id"));
+        return ServerResponse.ok().build();
+
+    }
+
+    public Mono<ServerResponse> handlePut(ServerRequest request) {
+        final Mono<Supplier> supplier = queryService.findByID(request.pathVariable("id"));
+
+        return supplier
+                .flatMap(c -> ok().body(commandService.insert(supplier), Supplier.class))
+                .switchIfEmpty(notFound().build());
     }
 }

@@ -1,4 +1,4 @@
-package sowa.domain.orders;
+package sowa.domain.orders.shipper;
 
 
 import org.springframework.stereotype.Component;
@@ -14,12 +14,12 @@ import static org.springframework.web.reactive.function.server.ServerResponse.no
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 @Component
-public class OrderHandler {
+public class ShipperHandler {
 
-    private final OrderQueryService queryService;
-    private final OrderCommandService commandService;
+    private final ShipperQueryService queryService;
+    private final ShipperCommandService commandService;
 
-    public OrderHandler(OrderQueryService queryService, OrderCommandService commandService) {
+    public ShipperHandler(ShipperQueryService queryService, ShipperCommandService commandService) {
         this.queryService = queryService;
         this.commandService = commandService;
     }
@@ -39,22 +39,14 @@ public class OrderHandler {
     }
 
     public Mono<ServerResponse> handleGetAll(ServerRequest request) {
-        Flux<Order> data = queryService.findAll();
-        return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Order.class);
-    }
-
-    public Mono<ServerResponse> findAllByShipName(ServerRequest request) {
-        Flux<Order> data = queryService
-                .findAllByShipName(request
-                        .queryParam("shipName")
-                        .orElseThrow(IllegalArgumentException::new));
-        return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Order.class);
+        Flux<Shipper> data = queryService.findAll();
+        return ServerResponse.ok().contentType(APPLICATION_JSON).body(data, Shipper.class);
     }
 
     public Mono<ServerResponse> handlePost(ServerRequest request) {
-        Mono<Order> order = request.bodyToMono(Order.class);
+        Mono<Shipper> shipper = request.bodyToMono(Shipper.class);
 //        order.subscribe(o -> System.out.println(o.toString()));
-        return ServerResponse.ok().body(commandService.insert(order), Order.class);
+        return ServerResponse.ok().body(commandService.insert(shipper), Shipper.class);
     }
 
     public Mono<ServerResponse> handleDelete(ServerRequest request) {
@@ -64,10 +56,10 @@ public class OrderHandler {
     }
 
     public Mono<ServerResponse> handlePut(ServerRequest request) {
-        final Mono<Order> order = queryService.findByID(request.pathVariable("id"));
+        final Mono<Shipper> shipper = queryService.findByID(request.pathVariable("id"));
 
-        return order
-                .flatMap(c -> ok().body(commandService.insert(order), Order.class))
+        return shipper
+                .flatMap(c -> ok().body(commandService.insert(shipper), Shipper.class))
                 .switchIfEmpty(notFound().build());
     }
 }

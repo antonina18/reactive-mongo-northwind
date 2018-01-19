@@ -1,8 +1,9 @@
-package sowa.domain.orders;
+package sowa.domain.orders.customers;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
@@ -10,20 +11,15 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.n
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-class OrderRoutesConfiguration {
+class CustomerRoutesConfiguration {
 
     @Bean
-    public RouterFunction<?> orderRouterFunction(OrderHandler handler) {
-        return nest(path("/orders"),
+    public RouterFunction<ServerResponse> customerRouterFunction(CustomerHandler handler) {
+        return nest(path("/customers"),
                 route(
                         GET("")
                                 .and(accept(APPLICATION_JSON)),
                         handler::handleGetAll)
-                .andRoute(
-                        GET("/search")
-                                .and(accept(APPLICATION_JSON))
-                                .and(queryParam("shipName", e -> !e.isEmpty())),
-                        handler::findAllByShipName)
                 .andRoute(
                         GET("/{id}")
                                 .and(accept(APPLICATION_JSON)),
@@ -32,9 +28,9 @@ class OrderRoutesConfiguration {
                         POST("")
                                 .and(contentType(APPLICATION_JSON)),
                         handler::handlePost)
-                 .andRoute(
+                .andRoute(
                          PUT("/{id}")
-                                 .and(contentType(APPLICATION_JSON)),
+                                .and(contentType(APPLICATION_JSON)),
                          handler::handlePut)
                 .andRoute(
                         DELETE("/{id}")

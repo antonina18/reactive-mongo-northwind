@@ -1,23 +1,23 @@
-package sowa.domain.orders;
+package sowa.domain.orders.employees;
 
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class OrderCommandService {
+public class EmployeeCommandService {
 
-    private final OrderRepository repository;
+    private final EmployeesRepository repository;
 
-    public OrderCommandService(OrderRepository repository) {
+    public EmployeeCommandService(EmployeesRepository repository) {
         this.repository = repository;
     }
 
-    protected Flux<Order> insertAll(Flux<Order> order) {
+    protected Flux<Employee> insertAll(Flux<Employee> order) {
         return repository.insert(order);
     }
 
-    protected Flux<Order> insert(Mono<Order> order) {
+    protected Flux<Employee> insert(Mono<Employee> order) {
         return repository.insert(order);
     }
 

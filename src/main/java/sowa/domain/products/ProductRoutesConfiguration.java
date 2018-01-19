@@ -2,7 +2,6 @@ package sowa.domain.products;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
@@ -21,10 +20,10 @@ class ProductRoutesConfiguration {
                         GET("")
                                 .and(accept(APPLICATION_JSON)),
                         handler::handleGetAll)
-                .andRoute(
+                 .andRoute(
                         POST("")
                                 .and(contentType(APPLICATION_JSON)),
-                        handler::handlePostAll)
+                        handler::handlePost)
                 .andRoute(
                         GET("/search")
                                 .and(accept(APPLICATION_JSON))
@@ -34,6 +33,14 @@ class ProductRoutesConfiguration {
                         GET("/{id}")
                                 .and(accept(APPLICATION_JSON)),
                         handler::handleGet)
+                .andRoute(
+                        PUT("/{id}")
+                                 .and(contentType(APPLICATION_JSON)),
+                         handler::handlePut)
+                 .andRoute(
+                         DELETE("/{id}")
+                                  .and(contentType(APPLICATION_JSON)),
+                         handler::handleDelete)
                );
     }
 
