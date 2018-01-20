@@ -13,15 +13,15 @@ public class CustomerCommandService {
         this.repository = repository;
     }
 
-    protected Flux<Customer> insertAll(Flux<Customer> customer) {
-        return repository.insert(customer);
-    }
-
     protected Flux<Customer> insert(Mono<Customer> customer) {
         return repository.insert(customer);
     }
 
-    public Mono<Void> delete(String id) {
+    protected Mono<Void> delete(String id) {
         return repository.deleteById(id);
+    }
+
+    protected Mono<Customer> saveOrUpdate(Customer customer) {
+        return repository.save(customer);
     }
 }

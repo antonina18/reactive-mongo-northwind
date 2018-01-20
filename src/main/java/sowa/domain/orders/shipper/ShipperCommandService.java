@@ -13,12 +13,12 @@ public class ShipperCommandService {
         this.repository = repository;
     }
 
-    protected Flux<Shipper> insertAll(Flux<Shipper> shipper) {
+    protected Flux<Shipper> insert(Mono<Shipper> shipper) {
         return repository.insert(shipper);
     }
 
-    protected Flux<Shipper> insert(Mono<Shipper> shipper) {
-        return repository.insert(shipper);
+    protected Mono<Shipper> saveOrUpdate(Shipper shipper) {
+        return repository.save(shipper);
     }
 
     public Mono<Void> delete(String id) {

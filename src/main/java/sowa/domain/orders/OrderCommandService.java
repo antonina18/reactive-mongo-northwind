@@ -13,15 +13,15 @@ public class OrderCommandService {
         this.repository = repository;
     }
 
-    protected Flux<Order> insertAll(Flux<Order> order) {
-        return repository.insert(order);
-    }
-
     protected Flux<Order> insert(Mono<Order> order) {
         return repository.insert(order);
     }
 
     public Mono<Void> delete(String id) {
         return repository.deleteById(id);
+    }
+
+    public Mono<Order> saveOrUpdate(Order order) {
+        return repository.save(order);
     }
 }

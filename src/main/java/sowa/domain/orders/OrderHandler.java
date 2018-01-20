@@ -6,7 +6,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import sowa.domain.orders.customers.Customer;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
@@ -53,7 +52,6 @@ public class OrderHandler {
 
     public Mono<ServerResponse> handlePost(ServerRequest request) {
         Mono<Order> order = request.bodyToMono(Order.class);
-//        order.subscribe(o -> System.out.println(o.toString()));
         return ServerResponse.ok().body(commandService.insert(order), Order.class);
     }
 
@@ -64,10 +62,10 @@ public class OrderHandler {
     }
 
     public Mono<ServerResponse> handlePut(ServerRequest request) {
-        final Mono<Order> order = queryService.findByID(request.pathVariable("id"));
-
+        Mono<Order> order = request.bodyToMono(Order.class);
         return order
-                .flatMap(c -> ok().body(commandService.insert(order), Order.class))
+                .flatMap(commandService::saveOrUpdate)
+                .flatMap(updated -> ok().body(Mono.just(updated), Order.class))
                 .switchIfEmpty(notFound().build());
     }
 }

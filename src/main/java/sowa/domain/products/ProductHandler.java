@@ -41,13 +41,7 @@ public class ProductHandler {
 
     public Mono<ServerResponse> handlePost(ServerRequest request) {
         Mono<Product> product = request.bodyToMono(Product.class);
-//        order.subscribe(o -> System.out.println(o.toString()));
         return ServerResponse.ok().body(commandService.insert(product), Product.class);
-    }
-
-    public Mono<ServerResponse> handlePostAll(ServerRequest request) {
-        Flux<Product> products = request.bodyToFlux(Product.class);
-        return ServerResponse.ok().body(commandService.insertAll(products), Product.class);
     }
 
     public Mono<ServerResponse> findGetAllBySupplierCountry(ServerRequest request) {
@@ -65,10 +59,10 @@ public class ProductHandler {
     }
 
     public Mono<ServerResponse> handlePut(ServerRequest request) {
-        final Mono<Product> product = queryService.findByID(request.pathVariable("id"));
-
+        Mono<Product> product = request.bodyToMono(Product.class);
         return product
-                .flatMap(c -> ok().body(commandService.save(product), Product.class))
+                .flatMap(commandService::saveOrUpdate)
+                .flatMap(updated -> ok().body(Mono.just(updated), Product.class))
                 .switchIfEmpty(notFound().build());
     }
 }

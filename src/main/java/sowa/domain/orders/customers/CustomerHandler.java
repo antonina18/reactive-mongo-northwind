@@ -44,7 +44,6 @@ public class CustomerHandler {
 
     public Mono<ServerResponse> handlePost(ServerRequest request) {
         Mono<Customer> customer = request.bodyToMono(Customer.class);
-//        order.subscribe(o -> System.out.println(o.toString()));
         return ok().body(commandService.insert(customer), Customer.class);
     }
 
@@ -55,10 +54,10 @@ public class CustomerHandler {
     }
 
     public Mono<ServerResponse> handlePut(ServerRequest request) {
-        final Mono<Customer> customer = queryService.findByID(request.pathVariable("id"));
-
+        Mono<Customer> customer = request.bodyToMono(Customer.class);
         return customer
-                .flatMap(c -> ok().body(commandService.insert(customer), Customer.class))
+                .flatMap(commandService::saveOrUpdate)
+                .flatMap(updated -> ok().body(Mono.just(updated), Customer.class))
                 .switchIfEmpty(notFound().build());
     }
 }

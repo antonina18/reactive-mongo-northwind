@@ -34,7 +34,7 @@ class ProductRoutesConfiguration {
                                 .and(accept(APPLICATION_JSON)),
                         handler::handleGet)
                 .andRoute(
-                        PUT("/{id}")
+                        PUT("")
                                  .and(contentType(APPLICATION_JSON)),
                          handler::handlePut)
                  .andRoute(

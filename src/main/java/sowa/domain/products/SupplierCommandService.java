@@ -13,12 +13,12 @@ public class SupplierCommandService {
         this.repository = repository;
     }
 
-    protected Flux<Supplier> insertAll(Flux<Supplier> supplier) {
+    protected Flux<Supplier> insert(Mono<Supplier> supplier) {
         return repository.insert(supplier);
     }
 
-    protected Flux<Supplier> insert(Mono<Supplier> supplier) {
-        return repository.insert(supplier);
+    protected Mono<Supplier> saveOrUpdate(Supplier supplier) {
+        return repository.save(supplier);
     }
 
     public Mono<Void> delete(String id) {

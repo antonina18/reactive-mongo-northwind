@@ -6,7 +6,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import sowa.domain.orders.customers.Customer;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
@@ -45,7 +44,6 @@ public class ShipperHandler {
 
     public Mono<ServerResponse> handlePost(ServerRequest request) {
         Mono<Shipper> shipper = request.bodyToMono(Shipper.class);
-//        order.subscribe(o -> System.out.println(o.toString()));
         return ServerResponse.ok().body(commandService.insert(shipper), Shipper.class);
     }
 
@@ -56,10 +54,10 @@ public class ShipperHandler {
     }
 
     public Mono<ServerResponse> handlePut(ServerRequest request) {
-        final Mono<Shipper> shipper = queryService.findByID(request.pathVariable("id"));
-
+        Mono<Shipper> shipper = request.bodyToMono(Shipper.class);
         return shipper
-                .flatMap(c -> ok().body(commandService.insert(shipper), Shipper.class))
+                .flatMap(commandService::saveOrUpdate)
+                .flatMap(updated -> ok().body(Mono.just(updated), Shipper.class))
                 .switchIfEmpty(notFound().build());
     }
 }

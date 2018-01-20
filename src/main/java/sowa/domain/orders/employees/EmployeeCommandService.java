@@ -24,4 +24,8 @@ public class EmployeeCommandService {
     public Mono<Void> delete(String id) {
         return repository.deleteById(id);
     }
+
+    public Mono<Employee> saveOrUpdate(Employee employee) {
+        return repository.save(employee);
+    }
 }

@@ -25,7 +25,7 @@ public class ProductCommandService {
         return repository.insert(product);
     }
 
-    public Mono<Product> save(Mono<Product> product) {
-        return repository.save(product.block());
+    public Mono<Product> saveOrUpdate(Product product) {
+        return  repository.save(product);
     }
 }

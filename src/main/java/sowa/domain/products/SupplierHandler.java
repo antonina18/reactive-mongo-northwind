@@ -36,7 +36,6 @@ public class SupplierHandler {
 
     public Mono<ServerResponse> handlePost(ServerRequest request) {
         Mono<Supplier> supplier = request.bodyToMono(Supplier.class);
-//        order.subscribe(o -> System.out.println(o.toString()));
         return ServerResponse.ok().body(commandService.insert(supplier), Supplier.class);
     }
 
@@ -60,10 +59,10 @@ public class SupplierHandler {
     }
 
     public Mono<ServerResponse> handlePut(ServerRequest request) {
-        final Mono<Supplier> supplier = queryService.findByID(request.pathVariable("id"));
-
+        Mono<Supplier> supplier = request.bodyToMono(Supplier.class);
         return supplier
-                .flatMap(c -> ok().body(commandService.insert(supplier), Supplier.class))
+                .flatMap(commandService::saveOrUpdate)
+                .flatMap(updated -> ok().body((Mono.just(updated)), Supplier.class))
                 .switchIfEmpty(notFound().build());
     }
 }

@@ -29,7 +29,7 @@ class CustomerRoutesConfiguration {
                                 .and(contentType(APPLICATION_JSON)),
                         handler::handlePost)
                 .andRoute(
-                         PUT("/{id}")
+                         PUT("")
                                 .and(contentType(APPLICATION_JSON)),
                          handler::handlePut)
                 .andRoute(
